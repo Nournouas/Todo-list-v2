@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+}
+
+.header{
+    padding: 25px 10px 25px 10px;
+    background-color: rgb(10, 39, 57);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    width: 20vw;
+    max-width: 250px;
+}
+
+.div-title-header{
+    color: whitesmoke;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    text-align: center;
+}
+
+.project-parent-div{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 10px 20px 10px 20px;
+    border-radius: 12px;
+}
+
+.add-project-header{
+    font-size: 18px;
+}
+
+.project-add-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.button-add-proj{
+    border-radius: 360px;
+    border: 1px solid blue;
+    color: white;
+    border-radius: 6px;
+    font-size: 24px;
+    padding: 0;
+    line-height: 0px;
+    width: 3vw;
+    height: 3vw;
+    padding-bottom: 4px;
+    padding-right: 1px;
+    background-color: rgb(17, 58, 114);
+    cursor: pointer;
+    transition: ease 200ms;
+    min-width: 25px;
+    min-height: 25px;
+    max-height: 35px;
+    max-width: 35px;
+    
+}
+.button-add-proj:hover{
+    border: 2px solid rgb(17, 58, 114);
+    color: rgb(0, 0, 0);
+    background-color: rgba(82, 136, 211, 0);
+}

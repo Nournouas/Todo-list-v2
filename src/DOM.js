@@ -12,8 +12,8 @@ function createElement(type, classes = [], content = "", attributes = {}){
     return element
 }
 
-
-function makeProjectAddButton(){
+//Make header -----------------------
+function makeProjectAddButton() {
     const div = createElement("div", ["project-add-div"], "", {});
     const addProjectHeader = createElement("h2", ["add-project-header"], "Create Project", {});
     const addProjectButton = createElement("button", ["button-add-proj"], "+", {})
@@ -22,18 +22,55 @@ function makeProjectAddButton(){
     return div;
 }
 
-function makeProjectDiv(){
-    const projectsDiv = createElement("div", ["project-parent-div"], "", {});
+function makeNewProjectDiv() {
+    const projectsDiv = createElement("div", ["new-project-parent-div"], "", {});
     projectsDiv.appendChild(makeProjectAddButton());
     return projectsDiv;
 }
 
-export function makeHeader(){
+export function makeHeader() {
     const header = createElement("header", ["header"], "", {});
     const titleDiv = createElement("div", ["div-title-header"], "", {});
     const title = createElement("h1", ["header-title"], "TODO", {});
+    const projectsDiv = createElement("div", ["all-projects-div"], "", {});
     titleDiv.appendChild(title);
     header.appendChild(titleDiv);
-    header.appendChild(makeProjectDiv());
+    header.appendChild(makeNewProjectDiv());
+    header.appendChild(projectsDiv);
     return header;
+}
+
+//------------------------------------
+
+
+export function makeNewProjectCard() {
+    const newProjectForm = createElement("form", ["new-project-form", "low-opacity"], "", {});
+    const inputDiv = createElement("div", ["input-div"], "", {});
+    const projectLabel = createElement("label", ["input-label"], "New Project", {for: "project-title-input"});
+    const projectTitleInput = createElement("input", ["text-input"], "", {placeholder: "Enter project name", type: "text", id: "project-title-input", required: true});
+    const projectButton = createElement("input", ["submit-button"], "", {value: "Create project", type: "submit"});
+    inputDiv.appendChild(projectLabel);
+    inputDiv.appendChild(projectTitleInput);
+    newProjectForm.appendChild(inputDiv);
+    newProjectForm.appendChild(projectButton);
+
+    return newProjectForm;
+    
+}
+
+export function makeProjectDiv(projectTitle){
+    const projectDiv = createElement("div", ["project-parent-div"], "", {id: projectTitle});
+    const div = createElement("div", ["project-title-div"], "", {});
+    const ProjectHeader = createElement("h2", ["project-header"], projectTitle, {});
+    div.appendChild(ProjectHeader);
+    projectDiv.appendChild(div);
+    return projectDiv;
+}
+
+export function makeProjectViewDiv(title){
+    const bigDiv = createElement("div", ["project-view-div"], "", {});
+    const projectHeader = createElement("h3", ["project-view-title"], title, {});
+    bigDiv.appendChild(projectHeader);
+
+    return bigDiv
 }

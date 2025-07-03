@@ -1,10 +1,12 @@
-export function createProject(title, tasks = []) {
+export function createProject(title, tasks = [], id) {
     let _title = title;
     let _tasks = tasks;
+    let _id = id;
 
     return {
         getTitle: () => _title,
         getTasks: () => [..._tasks],
+        getId: () => String(_id),
 
         editTitle: (newTitle) => _title = newTitle,
         addTask: (newTask) => _tasks.push(newTask),

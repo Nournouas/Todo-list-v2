@@ -19,12 +19,14 @@ function makeProjectAddButton() {
     const addProjectButton = createElement("button", ["button-add-proj"], "+", {})
     div.appendChild(addProjectHeader);
     div.appendChild(addProjectButton);
+
     return div;
 }
 
 function makeNewProjectDiv() {
     const projectsDiv = createElement("div", ["new-project-parent-div"], "", {});
     projectsDiv.appendChild(makeProjectAddButton());
+
     return projectsDiv;
 }
 
@@ -33,11 +35,18 @@ export function makeHeader() {
     const titleDiv = createElement("div", ["div-title-header"], "", {});
     const title = createElement("h1", ["header-title"], "TODO", {});
     const projectsDiv = createElement("div", ["all-projects-div"], "", {});
+    const projectsHeader = createElement("h2", ["projects-section-header"], "Projects:", {});
+    projectsDiv.appendChild(projectsHeader);
     titleDiv.appendChild(title);
     header.appendChild(titleDiv);
     header.appendChild(makeNewProjectDiv());
     header.appendChild(projectsDiv);
+
     return header;
+}
+
+export function makeProjectsHeader(){
+    return createElement("h2", ["projects-section-header"], "Projects:", {});
 }
 
 //------------------------------------
@@ -58,13 +67,19 @@ export function makeNewProjectCard() {
     
 }
 
-export function makeProjectDiv(projectTitle){
-    const projectDiv = createElement("div", ["project-parent-div"], "", {id: projectTitle});
+export function makeProjectDiv(newID, projectTitle){
+    const parentProjectDiv = createElement("div", ["project-outer-div"], "", {});
+    const projectDiv = createElement("div", ["project-parent-div"], "", {id: newID});
+    const deleteProject = createElement("button", ["delete-button"], "🗑️", {id: newID});
     const div = createElement("div", ["project-title-div"], "", {});
     const ProjectHeader = createElement("h2", ["project-header"], projectTitle, {});
     div.appendChild(ProjectHeader);
+    
     projectDiv.appendChild(div);
-    return projectDiv;
+    parentProjectDiv.appendChild(projectDiv);
+    parentProjectDiv.appendChild(deleteProject);
+
+    return parentProjectDiv;
 }
 
 export function makeProjectViewDiv(title){

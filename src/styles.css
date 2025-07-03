@@ -128,12 +128,21 @@ body{
     
 }
 
+
 .project-parent-div:hover{
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0);
     border: 2px solid white;
     color: white;
 }
+
+.selected-project{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid white;
+    color: white;
+}
+
 
 .project-view-div{
     width: 100%;
@@ -167,9 +176,7 @@ body{
 }
 
 .delete-button:hover{
-    padding: 0px 1px 0px 1px;
-    border: 3px solid red;
-    background-color: rgba(240, 248, 255, 0);
+    background-color: rgb(97, 14, 14);
 
 }
 
@@ -179,4 +186,111 @@ body{
     justify-content: space-between;
     gap: 20px;
     align-items: center;
+}
+
+.new-task-form{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#task-title-div{
+
+}
+
+#task-description-div{
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 2;
+    width: 100%;
+}
+
+#task-description-input, #task-date-input, #task-priority-input, #task-title-input{
+    width: 100%;
+}
+
+.input-div,.vertical{
+    flex-direction: column;
+    justify-content: left;
+    align-items: start;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.submit-button{
+    background-color: rgb(17, 58, 114);
+    max-height: 50px;
+    margin-top: 25px;
+    color: white;
+    border-radius: 20px;
+    font-size: 18px;
+    transition: ease 200ms;
+    cursor: pointer;
+}
+
+.submit-button:hover{
+    background-color: rgb(11, 41, 83);
+    color: white;
+    border-radius: 28px;
+    border: none;
+}
+
+.project-button{
+    background-color: rgb(255, 255, 255);
+    height: 40px;
+    padding: 0px;
+    line-height: 34px;
+    margin-top: 0;
+    color: rgb(23, 69, 114);
+    border-radius: 6px;
+    font-size: 16px;
+    transition: ease 200ms;
+    cursor: pointer;
+}
+
+input, input[type="date"], textarea, .select-input{
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid black;
+    font-size: 16px;
+}
+
+.tasks-grid{
+    margin-top: 5vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+    gap: 20px;
+    border-top: 6px solid rgb(17, 58, 114);
+    padding-top: 5vh;
+}
+
+.task-card{
+    padding: 12px;
+    background-color: rgb(24, 50, 95);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid rgb(247, 247, 247);
+    border-radius: 12px;
+    color: whitesmoke;
+    
+}
+
+.task-card-title{
+    font-size: 16px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid rgb(54, 83, 115);
+}
+
+.task-card-description{
+    font-size: 14px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid rgb(54, 83, 115);
+}   
+
+.task-card-bot-div{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }

@@ -9,6 +9,8 @@ const applicationModule = (function () {
     document.body.appendChild(makeHeader());
     addProjectButtonEventListener();
 
+    retrieveProjectList();
+
 
 
     //this function adds the event listener to the add project button
@@ -146,10 +148,18 @@ const applicationModule = (function () {
 
         deleteButton.addEventListener("click", ()=> {
             removeProject(projectObj);
+            removeProjectStorage(projectID);
             populateProjectsOnHeader(allProjects);
             
         });
     }
+
+    function removeProjectStorage (projectID){
+        if (storageAvailable("localStorage")){
+            localStorage.removeItem(projectID);
+        }
+    }
+
 
     //remove project from list of projects
     function removeProject(projectObj){
@@ -176,6 +186,7 @@ const applicationModule = (function () {
         if(!doesProjectExist(newProjectTitle)){
             const newProject = createProject(newProjectTitle, [], Date.now());
             allProjects.push(newProject);
+            storeProject(newProject);
             removeElementByClass(".new-project-form");
             return true;
         }else{
@@ -201,13 +212,89 @@ const applicationModule = (function () {
         const taskDateInput = document.querySelector("#task-date-input");
         const taskPriorityInput = document.querySelector("#task-priority-input");
 
-        const newTask = createTask(taskTitleInput.value, taskdescriptionInput.value, taskDateInput.value, taskPriorityInput.value);
-
-        console.log(newTask.getTitle());
+        const newTask = createTask(taskTitleInput.value, taskdescriptionInput.value, String(taskDateInput.value), taskPriorityInput.value);
         selectedProject.addTask(newTask);
         refreshProjectList;
         refreshProjectView(selectedProject);
-        console.log(selectedProject.getTasks());
+        storeProject(selectedProject);
+    }
+
+    function storeProject(project){
+        if (storageAvailable("localStorage")){
+            let friendlyJSONProject = {title: project.getTitle(), tasks: parseTasks(project.getTasks()), id: project.getId()};
+            localStorage.setItem(String(project.getId()), JSON.stringify(friendlyJSONProject));
+        }
+    }
+
+    //take a task and return an object friendly for JSON
+    function parseTaskForJSON(task){
+        const taskStringObj = {title: task.getTitle(), description: task.getDescription(), date: task.getDate(), priority: task.getPriority()};
+
+        return taskStringObj
+    }
+
+    //This can return an object with a bunch of JSON friendly tasks
+    function parseTasks (tasks){
+        let tasksString = {};
+
+        for (let i = 0; i < tasks.length ; i++){
+            tasksString[i] = parseTaskForJSON(tasks[i]);
+        }
+
+        return tasksString;
+
+    }
+
+    function retrieveProjectList(){
+        if (storageAvailable("localStorage") && window.localStorage.length != 0){
+            for (let i = 0; i < localStorage.length; i++){
+                let retrievedProject = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                let tasksList = createTaskListFromString(retrievedProject.tasks);
+                let project = createProject(retrievedProject.title, tasksList, retrievedProject.id);
+                allProjects.push(project);
+            }
+            populateProjectsOnHeader(allProjects);
+        }
+    }
+
+    function createTaskListFromString(tasksStringObj){
+        let tasksList = [];
+        for (let i = 0; i < Object.keys(tasksStringObj).length ; i++){
+            let taskObject = tasksStringObj[i];
+            tasksList.push(createTaskFromString(taskObject));
+        }
+
+        return tasksList
+    }
+
+    function createTaskFromString(taskString){
+        let newTaskTitle = taskString.title;
+        let newTaskDescription = taskString.description;
+        let newTaskDate = taskString.date;
+        let newTaskPrio = taskString.priority;
+
+        return createTask(newTaskTitle, newTaskDescription, newTaskDate, newTaskPrio);
+
+    }
+
+
+    function storageAvailable(type) {
+            let storage;
+            try {
+                storage = window[type];
+                const x = "__storage_test__";
+                storage.setItem(x, x);
+                storage.removeItem(x);
+                return true;
+            } catch (e) {
+                return (
+                e instanceof DOMException &&
+                e.name === "QuotaExceededError" &&
+                // acknowledge QuotaExceededError only if there's something already stored
+                storage &&
+                storage.length !== 0
+                );
+            }
     }
 
     
